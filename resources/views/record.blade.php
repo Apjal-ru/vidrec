@@ -33,7 +33,7 @@
     </style>
 </head>
 
-<body class="bg-gray-100 flex items-center justify-center h-screen">
+<body class="bg-green-100 flex items-center justify-center h-screen">
 
     <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md text-center">
         <h1 class="text-3xl font-bold mb-6 text-gray-800">Video Recorder</h1>
