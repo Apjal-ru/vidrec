@@ -38,7 +38,8 @@
         <div class="flex-grow flex items-center justify-center flex-col">
             <div class="text-center">
                 <!-- Description -->
-                <p class="text-xl">VidRec</p>
+                <p class="text-xl">VidRec - Video Recorder and Screen Recorder</p>
+                <p class="text-sm mb-4">Record your screen or webcam and save it online for later access.</p>
 
                 <!-- Record Button -->
                 <a href="{{ route('record') }}">
