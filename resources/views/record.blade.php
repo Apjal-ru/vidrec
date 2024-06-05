@@ -91,18 +91,19 @@
                     class="bg-blue-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none">Record
                     Again</button>
             </div>
-            @auth
-                <div class="mt-4">
+
+                <div class="button group mt-4">
+                    @auth
                     <button id="save"
                         class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">Save
-                        Video</button>
+                        Video
+                    </button>
+                    @endauth
+                    <a href="{{ route('my-videos') }}">
+                        <button class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">My
+                            Videos</button>
+                    </a>
                 </div>
-            @endauth
-            <div class="mt-4">
-                <a href="{{ route('my-videos') }}">
-                    <button class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">My
-                        Videos</button>
-                </a>
             </div>
         </div>
     </div>
