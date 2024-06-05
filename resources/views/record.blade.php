@@ -30,6 +30,18 @@
             border-radius: 5px;
             font-size: 16px;
         }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button-group button,
+        .button-group a {
+            margin: 5px;
+        }
     </style>
 </head>
 
@@ -37,7 +49,7 @@
 
     <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md text-center">
         <h1 class="text-3xl font-bold mb-6 text-gray-800">Video Recorder</h1>
-        <div class="mb-6">
+        <div class="button-group mb-6">
             <button id="record-camera"
                 class="bg-blue-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none">Record
                 Camera</button>
@@ -53,7 +65,7 @@
                 class="border-2 border-gray-300 rounded-lg"></video>
             <video id="camera-video" autoplay muted class="rounded-lg"></video>
             <div id="timer" class="hidden">00:00:00</div>
-            <div class="mt-4">
+            <div class="button-group mt-4">
                 <button id="record"
                     class="bg-blue-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none">Start
                     Recording</button>
@@ -69,7 +81,7 @@
                 <input type="text" id="filename" placeholder="Enter file name"
                     class="px-4 py-2 border rounded-full mb-4" />
             </div>
-            <div class="mt-4 flex justify-center space-x-4">
+            <div class="button-group mt-4">
                 <a id="download"
                     class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">Download
                     Video</a>
@@ -86,9 +98,10 @@
                         Video</button>
                 </div>
             @endauth
-            <div>
+            <div class="mt-4">
                 <a href="{{ route('my-videos') }}">
-                <button class="bg-green-500 text-white px-4 py-2 rounded">My Videos</button>
+                    <button class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">My
+                        Videos</button>
                 </a>
             </div>
         </div>
@@ -158,16 +171,13 @@
                 const url = window.URL.createObjectURL(blob);
                 playback.src = url;
 
-                // Replace record container with playback container
                 recordContainer.classList.add('hidden');
                 playbackContainer.classList.remove('hidden');
 
-                // Set download link
                 const filename = filenameInput.value || 'recorded-video';
                 downloadButton.href = url;
                 downloadButton.download = `${filename}.webm`;
 
-                // Handle save button for authenticated users
                 @auth
                 saveButton.addEventListener('click', () => {
                     const filename = filenameInput.value || 'recorded-video';
@@ -193,14 +203,14 @@
                         })
                         .catch(error => console.error('Error:', error));
                 });
-            @endauth
-        };
+                @endauth
+            };
 
-        mediaRecorder.start();
-        recordButton.textContent = 'Stop Recording';
-        pauseButton.classList.remove('hidden');
-        startTimer();
-        timer.classList.remove('hidden');
+            mediaRecorder.start();
+            recordButton.textContent = 'Stop Recording';
+            pauseButton.classList.remove('hidden');
+            startTimer();
+            timer.classList.remove('hidden');
         }
 
         function startStream(mode) {

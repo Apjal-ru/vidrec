@@ -13,7 +13,6 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* This ensures that the container takes the full height of the viewport */
         }
     </style>
 </head>
@@ -36,10 +35,8 @@
 
     <!-- Main Content -->
     <div class="flex-grow flex items-center justify-center">
-        <!-- Main Content -->
         <div class="flex-grow flex items-center justify-center flex-col">
             <div class="text-center">
-
                 <!-- Description -->
                 <p class="text-xl">VidRec</p>
 
@@ -50,9 +47,16 @@
                     </button>
                 </a>
 
+                <!-- My Videos Button -->
+                <a href="{{ route('my-videos') }}">
+                    <button id="myVideosButton" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mt-4">
+                        My Videos
+                    </button>
+                </a>
             </div>
         </div>
     </div>
+
     <script src="https://cdn.tailwindcss.com/"></script>
     <script>
         // Initialization for ES Users
