@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+//use Illuminate\Pagination\Paginator;
 use App\Models\Video;
 
 class VideoController extends Controller
@@ -46,7 +47,7 @@ class VideoController extends Controller
 
     public function myVideos()
     {
-        $videos = Auth::user()->videos; // Assuming a User hasMany Videos relationship
+        $videos = Auth::user()->videos()->paginate(6); // Paginate with 10 videos per page
         return view('my-videos', compact('videos'));
     }
 
