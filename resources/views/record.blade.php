@@ -50,60 +50,33 @@
     <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md text-center">
         <h1 class="text-3xl font-bold mb-6 text-gray-800">Video Recorder</h1>
         <div class="button-group mb-6">
-            <button id="record-camera"
-                class="bg-blue-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none">Record
-                Camera</button>
-            <button id="record-screen"
-                class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">Record
-                Screen</button>
-            <button id="record-both"
-                class="bg-purple-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-purple-600 focus:outline-none">Record
-                Both</button>
+            <button id="record-camera" class="bg-blue-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none">Record Camera</button>
+            <button id="record-screen" class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">Record Screen</button>
+            <button id="record-both" class="bg-purple-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-purple-600 focus:outline-none">Record Both</button>
         </div>
         <div id="record-container" class="mb-6 hidden relative">
-            <video id="screen-video" width="640" height="480" autoplay muted
-                class="border-2 border-gray-300 rounded-lg"></video>
+            <video id="screen-video" width="640" height="480" autoplay muted class="border-2 border-gray-300 rounded-lg"></video>
             <video id="camera-video" autoplay muted class="rounded-lg"></video>
             <div id="timer" class="hidden">00:00:00</div>
             <div class="button-group mt-4">
-                <button id="record"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none">Start
-                    Recording</button>
-                <button id="pause"
-                    class="bg-yellow-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-yellow-600 focus:outline-none hidden">Pause
-                    Recording</button>
+                <button id="record" class="bg-blue-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none">Start Recording</button>
+                <button id="pause" class="bg-yellow-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-yellow-600 focus:outline-none hidden">Pause Recording</button>
             </div>
         </div>
         <div id="playback-container" class="hidden mb-6">
-            <video id="playback" width="640" height="480" controls
-                class="border-2 border-gray-300 rounded-lg"></video>
-            <div class="mt-4">
-                <input type="text" id="filename" placeholder="Enter file name"
-                    class="px-4 py-2 border rounded-full mb-4" />
+            <video id="playback" width="640" height="480" controls class="border-2 border-gray-300 rounded-lg"></video>
+            <div class="button-group mt-4">
+                <a id="download" class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">Download Video</a>
+                <button id="delete" class="bg-red-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-red-600 focus:outline-none">Delete</button>
+                <button id="record-again" class="bg-blue-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none">Record Again</button>
             </div>
             <div class="button-group mt-4">
-                <a id="download"
-                    class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">Download
-                    Video</a>
-                <button id="delete"
-                    class="bg-red-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-red-600 focus:outline-none">Delete</button>
-                <button id="record-again"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none">Record
-                    Again</button>
-            </div>
-
-                <div class="button group mt-4">
-                    @auth
-                    <button id="save"
-                        class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">Save
-                        Video
-                    </button>
-                    @endauth
-                    <a href="{{ route('my-videos') }}">
-                        <button class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">My
-                            Videos</button>
-                    </a>
-                </div>
+                @auth
+                <button id="save" class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">Save Video</button>
+                <a href="{{ route('my-videos') }}">
+                    <button class="bg-green-500 text-white px-4 py-2 rounded-full transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none">My Videos</button>
+                </a>
+                @endauth
             </div>
         </div>
     </div>
@@ -121,7 +94,6 @@
         const recordContainer = document.getElementById('record-container');
         const playbackContainer = document.getElementById('playback-container');
         const timer = document.getElementById('timer');
-        const filenameInput = document.getElementById('filename');
 
         const recordCameraButton = document.getElementById('record-camera');
         const recordScreenButton = document.getElementById('record-screen');
@@ -143,8 +115,7 @@
                 const hours = Math.floor(elapsedTime / 3600000);
                 const minutes = Math.floor((elapsedTime % 3600000) / 60000);
                 const seconds = Math.floor((elapsedTime % 60000) / 1000);
-                timer.textContent =
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                timer.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }, 1000);
         }
 
@@ -154,9 +125,7 @@
 
         function startRecording() {
             recordedBlobs = [];
-            let options = {
-                mimeType: 'video/webm;codecs=vp9'
-            };
+            let options = { mimeType: 'video/webm;codecs=vp9' };
             mediaRecorder = new MediaRecorder(screenStream, options);
 
             mediaRecorder.ondataavailable = (event) => {
@@ -166,43 +135,40 @@
             };
 
             mediaRecorder.onstop = () => {
-                const blob = new Blob(recordedBlobs, {
-                    type: 'video/webm'
-                });
+                const blob = new Blob(recordedBlobs, { type: 'video/webm' });
                 const url = window.URL.createObjectURL(blob);
                 playback.src = url;
 
                 recordContainer.classList.add('hidden');
                 playbackContainer.classList.remove('hidden');
 
-                const filename = filenameInput.value || 'recorded-video';
+                const filename = 'recorded-video';
                 downloadButton.href = url;
                 downloadButton.download = `${filename}.webm`;
 
                 @auth
                 saveButton.addEventListener('click', () => {
-                    const filename = filenameInput.value || 'recorded-video';
                     const formData = new FormData();
                     formData.append('video', blob, `${filename}.webm`);
                     formData.append('name', filename);
 
                     fetch("{{ route('upload') }}", {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.path) {
-                                alert('Video saved successfully');
-                                console.log('Video saved successfully:', data.path);
-                            } else {
-                                console.error('Video save failed:', data.error);
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.path) {
+                            alert('Video saved successfully');
+                            console.log('Video saved successfully:', data.path);
+                        } else {
+                            console.error('Video save failed:', data.error);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
                 });
                 @endauth
             };
@@ -216,10 +182,7 @@
 
         function startStream(mode) {
             if (mode === 'camera') {
-                navigator.mediaDevices.getUserMedia({
-                        video: true,
-                        audio: true
-                    })
+                navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                     .then(mediaStream => {
                         screenStream = mediaStream;
                         screenVideo.srcObject = mediaStream;
@@ -227,10 +190,7 @@
                     })
                     .catch(error => console.error('Error accessing camera:', error));
             } else if (mode === 'screen') {
-                navigator.mediaDevices.getDisplayMedia({
-                        video: true,
-                        audio: true
-                    })
+                navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
                     .then(mediaStream => {
                         screenStream = mediaStream;
                         screenVideo.srcObject = mediaStream;
@@ -238,17 +198,12 @@
                     })
                     .catch(error => console.error('Error accessing screen:', error));
             } else if (mode === 'both') {
-                navigator.mediaDevices.getDisplayMedia({
-                        video: true
-                    })
+                navigator.mediaDevices.getDisplayMedia({ video: true })
                     .then(displayStream => {
                         screenStream = displayStream;
                         screenVideo.srcObject = displayStream;
 
-                        navigator.mediaDevices.getUserMedia({
-                                video: true,
-                                audio: true
-                            })
+                        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                             .then(webcamStream => {
                                 cameraStream = webcamStream;
                                 cameraVideo.srcObject = webcamStream;
@@ -303,15 +258,8 @@
     <script src="https://cdn.tailwindcss.com/"></script>
     <script>
         // Initialization for ES Users
-        import {
-            Dropdown,
-            Collapse,
-            initMDB
-        } from "mdb-ui-kit";
-        initMDB({
-            Dropdown,
-            Collapse
-        });
+        import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
+        initMDB({ Dropdown, Collapse });
     </script>
 </body>
 
