@@ -11,7 +11,9 @@
 <body class="bg-gray-100">
     <header class="bg-green-500 text-white py-4 px-6">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">VidRec</h1>
+            <h1>
+            <a href="{{route('dashboard')}}" class="text-2xl font-bold">VidRec</a>
+        </h1>
             <div>
                 <a href="#" class="text-white">Account</a>
             </div>
